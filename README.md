@@ -2,6 +2,12 @@
 
 Welcome to the CHIP-8 emulator! This project is a simple yet powerful emulator for the CHIP-8 system, written in C++ with SDL2. It emulates the CHIP-8 architecture, which is known for being the platform for early video games like *Pong*.
 
+## Example Screenshots
+
+![Screenshot 1](screenshots/screenshot1.png)
+![Screenshot 2](screenshots/screenshot2.png)
+
+
 ## Features
 
 - Emulates the CHIP-8 system
