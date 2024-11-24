@@ -16,13 +16,13 @@ all: $(TARGET)
 $(TARGET): $(OBJ)
 	@$(CXX) $(OBJ) -o $(TARGET) $(LDFLAGS)
 	@echo "Build complete. Running $(TARGET)..."
-	@./$(TARGET) "ibm_logo.ch8"
+	@./$(TARGET) "./roms/test_opcode.ch8"
 
 %.o: %.cpp
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 run:$(TARGET)
-	./chip8_emu "ibm_logo.ch8"
+	./chip8_emu "./roms/test_opcode.ch8"
 
 # Clean Up
 clean:
@@ -34,7 +34,7 @@ debug:CXXFLAGS += -DDEBUG
 debug:$(OBJ)
 	@$(CXX) $(OBJ) -o $(TARGET) $(LDFLAGS)
 	@echo "Build complete. Running $(TARGET)..."
-	@./$(TARGET) "test_opcode.ch8"
+	@./$(TARGET) "./roms/test_opcode.ch8"
 
 
 
