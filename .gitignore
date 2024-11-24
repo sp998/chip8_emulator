@@ -5,10 +5,7 @@
 /out/
 
 # Ignore CMake and other build system files
-CMakeCache.txt
-CMakeFiles/
-Makefile
-Makefile.user
+
 *.d
 *.a
 *.o
