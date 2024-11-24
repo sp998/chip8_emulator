@@ -173,7 +173,7 @@ chip8->run();
 
 uint64_t end_time = SDL_GetPerformanceCounter();
 
-const double time_elapsed = (double)((end_time-start_time)/1000)/SDL_GetPerformanceFrequency();
+const double time_elapsed = (double)((end_time-start_time)*1000)/SDL_GetPerformanceFrequency();
 SDL_Delay(16.67f>time_elapsed?16.67-time_elapsed:0);
 
 }
