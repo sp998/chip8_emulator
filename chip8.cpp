@@ -7,8 +7,6 @@
 
 
 
-
-
 uint8_t rand_n(uint8_t n){
     std::random_device rd;
     std::mt19937 gen(rd());  //Mersenne Twister engine
@@ -19,6 +17,13 @@ uint8_t rand_n(uint8_t n){
 }
 
 Chip8::Chip8(char* romname){
+
+     audio = new Audio();
+
+     if(!audio->is_initialized()){
+        std::cerr <<"Failed to initialize audio"<<std::endl;
+        SDL_Quit();
+     }
     rom_name=romname;
     __d({
     std::cout<<"loading rom:"<<rom_name<<std::endl;
@@ -106,7 +111,7 @@ void Chip8::show_rom_data(){
     }
 }
 
-#define INSTRUCTION_PER_SECOND  700
+#define INSTRUCTION_PER_SECOND  500
 
 void Chip8::run(){
   
@@ -458,5 +463,13 @@ void Chip8::execute_instruction(){
 
 void Chip8::update_timers(){
     if(delay_timer>0) delay_timer--;
-    if(sound_timer>0) sound_timer--;
+    if(sound_timer>0){
+         audio->play_tit_sound();
+        sound_timer--;
+        }
+}
+
+void Chip8::reset(){
+    memset(display,0,sizeof(display));
+    PC=0x200;
 }

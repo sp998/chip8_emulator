@@ -6,7 +6,7 @@
 #define GRID_WIDTH 64
 #define GRID_HEIGHT 32
 
-#define SHOW_GRIDLINES 0
+#define SHOW_GRIDLINES 1
 
 typedef struct Color{
     uint8_t red;
@@ -85,6 +85,9 @@ int main(int argc,char* argv[]){
                         chip8->state = EmulatorState::RUNNING;
                     }
                     break;
+                case SDL_SCANCODE_N: chip8->reset();break;
+                case SDL_SCANCODE_RIGHT: chip8->keypad[0x06]=true;break;
+                case SDL_SCANCODE_LEFT: chip8->keypad[0x04] = true;break;
                 case SDL_SCANCODE_1: chip8->keypad[0x1]=true; break;
                 case SDL_SCANCODE_2: chip8->keypad[0x2]=true; break;
                 case SDL_SCANCODE_3: chip8->keypad[0x3]=true; break;
@@ -114,6 +117,9 @@ int main(int argc,char* argv[]){
                 switch (e.key.keysym.scancode)
                 {
                
+                case SDL_SCANCODE_RIGHT: chip8->keypad[0x06]=false;break;
+                case SDL_SCANCODE_LEFT: chip8->keypad[0x04] =false;break;
+                
                 case SDL_SCANCODE_1: chip8->keypad[0x1]=false; break;
                 case SDL_SCANCODE_2: chip8->keypad[0x2]=false; break;
                 case SDL_SCANCODE_3: chip8->keypad[0x3]=false; break;
