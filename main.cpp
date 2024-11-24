@@ -110,13 +110,7 @@ int main(int argc,char* argv[]){
             if(e.type==SDL_KEYUP){
                 switch (e.key.keysym.scancode)
                 {
-                case SDL_SCANCODE_SPACE :
-                    if(chip8->state==EmulatorState::RUNNING){
-                    chip8->state=EmulatorState::PAUSED;
-                    }else{
-                        chip8->state = EmulatorState::RUNNING;
-                    }
-                    break;
+               
                 case SDL_SCANCODE_1: chip8->keypad[0x1]=false; break;
                 case SDL_SCANCODE_2: chip8->keypad[0x2]=false; break;
                 case SDL_SCANCODE_3: chip8->keypad[0x3]=false; break;
