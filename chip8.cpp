@@ -87,13 +87,13 @@ void Chip8::read_rom(){
     rom_size=size;
     size_t buffer_size = sizeof(ram)-entry_point;
 
-     if(size>buffer_size){
+     if(rom_size>buffer_size){
         std::cout<<"can't read the rom it's too big"<<std::endl;
         file.close();
         return;
      }
     
-    file.read(reinterpret_cast<char*>(&ram[entry_point]),size);
+    file.read(reinterpret_cast<char*>(&ram[entry_point]),rom_size);
     file.close();
 }
 
@@ -119,7 +119,6 @@ void Chip8::run(){
 
 void Chip8::execute_instruction(){
    instruction.opcode = (ram[PC]<<8)|(ram[PC+1]);
-   uint32_t entry_point=0x200;
    uint16_t inst=instruction.opcode;
    instruction.NNN = inst&0x0FFF;
    instruction.NN =  inst&0x0FF;

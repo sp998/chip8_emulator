@@ -3,6 +3,11 @@
 #include <vector>
 #include "chip8.hpp"
 
+#define GRID_WIDTH 64
+#define GRID_HEIGHT 32
+
+#define SHOW_GRIDLINES 0
+
 typedef struct Color{
     uint8_t red;
     uint8_t green;
@@ -20,7 +25,7 @@ Color green={.green=255};
 Color blue ={.blue=255};
 Color yellow = {.red=255,.green=100};
 Color black={};
-Color white=green;
+Color display_color=green;
 
 void setColor(SDL_Renderer* renderer,Color* color);
 void __loop(SDL_Renderer* renderer,Chip8* chip8);
@@ -39,9 +44,7 @@ int main(int argc,char* argv[]){
         return 1;
     }
 
-    black.next=&red;
-    red.next=&green;
-    red.prev=&black;
+   
 
     Color* current_color =&black;
 
@@ -162,32 +165,6 @@ void setColor(SDL_Renderer* renderer,Color* color){
     SDL_SetRenderDrawColor(renderer,color->red,color->green,color->blue,255);
 }
 
-#define GRID_WIDTH 64
-#define GRID_HEIGHT 32
-
-#define SHOW_GRIDLINES 0
-
-void set_display(SDL_Renderer* renderer,int x, int y,bool value){
-    if(x<0||x>GRID_WIDTH ||y>GRID_HEIGHT ||y<0){
-        SDL_Log("invalid grid");
-        return;
-    }
-
-    int pos = x+y*GRID_WIDTH;
-    if(value){
-        setColor(renderer,&white);
-        SDL_RenderFillRect(renderer,&grids[pos]);
-    }else{
-        setColor(renderer,&black);
-        SDL_RenderFillRect(renderer,&grids[pos]);
-        if(SHOW_GRIDLINES){
-            setColor(renderer,&black);
-            SDL_RenderDrawRect(renderer,&grids[pos]);
-        }
-    }
-}
-
-
 void loop(Chip8* chip8){
 uint64_t start_time= SDL_GetPerformanceCounter();
 if(chip8->state==EmulatorState::RUNNING){
@@ -219,7 +196,7 @@ void __loop(SDL_Renderer* renderer,Chip8* chip8){
     for(uint16_t i;i<GRID_HEIGHT*GRID_WIDTH;i++){
         bool value= chip8->display[i];
           if(value){
-        setColor(renderer,&white);
+        setColor(renderer,&display_color);
         SDL_RenderFillRect(renderer,&grids[i]);
          if(SHOW_GRIDLINES){
             setColor(renderer,&black);
